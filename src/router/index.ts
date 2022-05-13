@@ -130,8 +130,8 @@ router.beforeEach((to, from, next) => {
   const flag = tabsOption.findIndex((tab: { route: string }) => tab.route === to.path) > -1
   if (!flag && !to.meta.hiddenTab) {
     store.commit('tabModule/ADD_TAB', { route: to.path, title: to.meta.title, name: to.name })
-    store.commit('tabModule/SET_TAB', to.path)
   }
+  store.commit('tabModule/SET_TAB', to.path)
  
   if (sessionStorage.getItem('auth')) {
     next()

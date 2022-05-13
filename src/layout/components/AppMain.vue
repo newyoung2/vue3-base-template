@@ -29,7 +29,7 @@
   </section>
 </template>
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent,onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -69,6 +69,11 @@ export default defineComponent({
       store.commit('tabModule/SET_TAB', tabName.paneName)
       router.replace({ path: currentIndex.value })
     }
+
+    onBeforeUnmount(()=>{
+         store.commit('tabModule/CLEAR_TAB')
+    })
+
     return {
       tabsOption,
       lang,
