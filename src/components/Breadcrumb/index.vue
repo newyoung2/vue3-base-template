@@ -12,7 +12,7 @@
 import { defineComponent, onMounted, ref, watch, computed } from 'vue'
 import { compile } from 'path-to-regexp'
 import { RouteLocationMatched, useRoute, useRouter } from 'vue-router'
-import { useStore } from '../../store/index'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   setup() {

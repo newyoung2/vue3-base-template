@@ -15,7 +15,7 @@
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs } from 'vue'
 import logo from '@/assets/logo.png'
-import { useStore } from '../../../store/index'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'SidebarLogo',

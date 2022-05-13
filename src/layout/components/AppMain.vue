@@ -15,15 +15,15 @@
     </el-tabs>
     <router-view v-if="$route.meta.keepAlive" v-slot="{ Component }">
       <transition name="fade" mode="out-in">
-        <component :is="Component" :key="$route.path" />
+        <keep-alive>
+          <component :is="Component" :key="$route.path" />
+        </keep-alive>
       </transition>
     </router-view>
 
     <router-view v-if="!$route.meta.keepAlive" v-slot="{ Component }">
       <transition name="fade" mode="out-in">
-        <keep-alive>
           <component :is="Component" :key="$route.path" />
-        </keep-alive>
       </transition>
     </router-view>
   </section>
@@ -31,7 +31,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from '../../store/index'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'AppMain',

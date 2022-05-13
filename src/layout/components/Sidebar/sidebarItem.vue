@@ -26,7 +26,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, ref, toRef, computed } from 'vue'
-import { useStore } from '@/store/index'
+import { useStore } from 'vuex'
 
 interface childType {
   path: string

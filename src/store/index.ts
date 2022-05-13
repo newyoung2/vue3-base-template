@@ -10,7 +10,7 @@ const defaultState = {
   count: 0,
 };
 // 新建store 实例
-export const store = createStore({
+ const store = createStore({
   state() {
     return defaultState;
   },
@@ -38,8 +38,10 @@ export const store = createStore({
   },
 });
 
-export const key: InjectionKey<Store<RootStateTypes>> = Symbol('vue3-store');
+export default store
 
-export function useStore<T = AllStateTypes>() {
-  return baseUseStore<T>(key);
-}
+// export const key: InjectionKey<Store<RootStateTypes>> = Symbol('vue3-store');
+
+// export function useStore<T = AllStateTypes>() {
+//   return baseUseStore<T>(key);
+// }

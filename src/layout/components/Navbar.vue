@@ -12,7 +12,7 @@ import { defineComponent, computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Hamburger from '@/components/Hamburger/Hamburger.vue'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
-import { useStore } from '../../store/index'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'Navbar',
@@ -38,7 +38,7 @@ export default defineComponent({
 
     const logout = () => {
       // clear()
-      sessionStorage.removeItem('auth')
+      sessionStorage.setItem('auth','')
       router.replace('/login')
     }
 

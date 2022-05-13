@@ -25,7 +25,7 @@ import {
 import { useRoute } from 'vue-router'
 import sidebarItem from '@/layout/components/Sidebar/sidebarItem.vue'
 import logo from './Logo.vue'
-import { useStore } from '../../../store/index'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   components: {

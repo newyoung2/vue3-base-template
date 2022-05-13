@@ -6,3 +6,4 @@ eventBus.$on = emitter.on;
 eventBus.$emit = emitter.emit;
 eventBus.$off =  emitter.off;
 export default eventBus;
+

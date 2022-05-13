@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, computed, toRefs, ref, watchEffect } from 'vue'
-import { useStore } from '../store/index'
+import { useStore } from 'vuex'
 import Sidebar from './components/Sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
 import Navbar from './components/Navbar.vue'

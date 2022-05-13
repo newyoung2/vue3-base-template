@@ -1,11 +1,12 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import store from '../store'
 import layout from '../layout/index.vue'
 // 静态路由
 export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: layout,
-    // redirect: '/home',
+    redirect: '/home',
     meta: {
       title: {
         '/zh-CN': '首页',
@@ -14,20 +15,21 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       icon: 'ic ic-homepage-fill'
     },
     children: [
-      // {
-      //   path: '/home',
-      //   name: 'home',
-      //   component: () => import(/* webpackChunkName: "home" */ '@/views/Home/home.vue'),
-      //   meta: {
-      //     title: {
-      //       '/zh-CN': '首页',
-      //       '/en-US': 'Home Page'
-      //     },
-      //     icon: 'ic ic-homepage-fill'
-      //   }
-      // }
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/Home/home.vue'),
+        meta: {
+          title: {
+            '/zh-CN': '首页',
+            '/en-US': 'Home Page'
+          },
+          icon: 'ic ic-homepage-fill'
+        }
+      }
     ]
   },
+  
   {
     path: '/login',
     name: '登录',
@@ -72,32 +74,44 @@ export const constantRoutes: Array<RouteRecordRaw> = [
 // 异步路由
 // 异步路由
 export const asyncRoutes: Array<RouteRecordRaw> = [
-  // {
-  //   path: '/guide',
-  //   component: layout,
-  //   redirect: '/guide/guide',
-  //   meta: {
-  //     title: {
-  //       '/zh-CN': '引导页',
-  //       '/en-US': 'Guide Page'
-  //     },
-  //     icon: 'ic ic-coordinates-fill'
-  //   },
-  //   children: [
-  //     {
-  //       path: '/guide/guide',
-  //       name: 'guide',
-  //       component: () => import('@/views/Guide/index.vue'),
-  //       meta: {
-  //         title: {
-  //           '/zh-CN': '引导',
-  //           '/en-US': 'Guide'
-  //         },
-  //         icon: 'ic ic-coordinates-fill'
-  //       }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/test',
+    component: layout,
+    redirect: '/test/test1',
+    meta: {
+      title: {
+        '/zh-CN': '测试',
+        '/en-US': 'Guide Page'
+      },
+      icon: 'ic ic-coordinates-fill'
+    },
+    children: [
+      {
+        path: '/test/test1',
+        name: 'test1',
+        component: () => import('@/views/Test/test1.vue'),
+        meta: {
+          title: {
+            '/zh-CN': '测1',
+            '/en-US': 'Guide'
+          },
+          icon: 'ic ic-coordinates-fill'
+        }
+      },
+      {
+        path: '/test/test2',
+        name: 'test2',
+        component: () => import('@/views/Test/test2.vue'),
+        meta: {
+          title: {
+            '/zh-CN': '测2',
+            '/en-US': 'Guide'
+          },
+          icon: 'ic ic-coordinates-fill'
+        }
+      }
+    ]
+  },
  
 ]
 
@@ -110,7 +124,15 @@ const router = createRouter({
   routes: constantRoutes
 })
 router.beforeEach((to, from, next) => {
-  console.log(sessionStorage.getItem('auth'))
+  const tabsOption = store.getters['tabModule/getTabsOption']
+  // 判断当前路由中是否已经入栈
+  console.log(to)
+  const flag = tabsOption.findIndex((tab: { route: string }) => tab.route === to.path) > -1
+  if (!flag && !to.meta.hiddenTab) {
+    store.commit('tabModule/ADD_TAB', { route: to.path, title: to.meta.title, name: to.name })
+    store.commit('tabModule/SET_TAB', to.path)
+  }
+ 
   if (sessionStorage.getItem('auth')) {
     next()
   } else if (to.path === '/login') {

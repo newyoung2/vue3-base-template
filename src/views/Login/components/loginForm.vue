@@ -51,7 +51,7 @@
 import { defineComponent, ref, toRefs, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { useStore } from '@/store'
+import { useStore } from 'vuex'
 import Service from '../api/index'
 
 interface stateType {
@@ -76,9 +76,9 @@ export default defineComponent({
   setup(_props, { emit }) {
     const router = useRouter()
     const route = useRoute()
+    const store = useStore()
     const loginFormRef = ref()
     const registerRef = ref()
-    const store = useStore()
     const sendingCode = ref(false)
     const codeText = ref('获取验证码')
     const state = reactive<stateType>({
@@ -135,7 +135,9 @@ export default defineComponent({
      *
      */
     const submitForm = () => {
+      
       sessionStorage.setItem('auth','true')
+      store.dispatch('permissionModule/getAllMenu')
       router.push('/')
     }
     /**

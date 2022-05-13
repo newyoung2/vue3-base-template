@@ -1,5 +1,5 @@
 import {  onMounted, onBeforeMount, onBeforeUnmount } from "vue";
-import { useStore } from '@/store/index'
+import { useStore } from 'vuex'
 
 const { body } = document
 const WIDTH = 992 // refer to Bootstrap's responsive design

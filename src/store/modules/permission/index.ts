@@ -73,6 +73,20 @@ const permissionModule: Module<permissionStateTypes, RootStateTypes> = {
         });
       })
     },
+    getAllMenu({ commit }){
+      // 动态添加路由  vue-router4.x 暂时没有addRoutes
+      router.isReady().then(()=>{
+        asyncRoutes.forEach((route: RouteRecordRaw)=>{
+          const routeName: any = route.name;
+          if (!router.hasRoute(routeName)) {
+            router.addRoute(route);
+          }
+        });
+        router.options.routes = constantRoutes.concat(asyncRoutes);
+        console.log(router);
+        commit('setAccessRoutes', asyncRoutes);
+      });
+    },
     getPermissions({ commit }){
         // 后端根据角色名称，查询授权菜单
         Service.postPermissions({}).then(res=>{
